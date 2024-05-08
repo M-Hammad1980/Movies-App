@@ -1,5 +1,7 @@
 package com.app.movies.data.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 data class ApiResponse (
@@ -14,6 +16,7 @@ data class ApiResponse (
         @SerializedName("maximum") var maximum: String? = null,
         @SerializedName("minimum") var minimum: String? = null
     )
+
 
     data class Results (
         @SerializedName("adult") var adult: Boolean? = null,
@@ -30,5 +33,53 @@ data class ApiResponse (
         @SerializedName("video") var video: Boolean? = null,
         @SerializedName("vote_average") var voteAverage: Double? = null,
         @SerializedName("vote_count") var voteCount: Int? = null
-    )
+    ) : Parcelable {
+        constructor(parcel: Parcel) : this(
+            parcel.readValue(Boolean::class.java.classLoader) as? Boolean,
+            parcel.readString(),
+            parcel.readArrayList(Int::class.java.classLoader) as ArrayList<Int>,
+            parcel.readValue(Int::class.java.classLoader) as? Int,
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readValue(Double::class.java.classLoader) as? Double,
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readValue(Boolean::class.java.classLoader) as? Boolean,
+            parcel.readValue(Double::class.java.classLoader) as? Double,
+            parcel.readValue(Int::class.java.classLoader) as? Int
+        )
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeValue(adult)
+            parcel.writeString(backdropPath)
+            parcel.writeList(genreIds)
+            parcel.writeValue(id)
+            parcel.writeString(originalLanguage)
+            parcel.writeString(originalTitle)
+            parcel.writeString(overview)
+            parcel.writeValue(popularity)
+            parcel.writeString(posterPath)
+            parcel.writeString(releaseDate)
+            parcel.writeString(title)
+            parcel.writeValue(video)
+            parcel.writeValue(voteAverage)
+            parcel.writeValue(voteCount)
+        }
+
+        override fun describeContents(): Int {
+            return 0
+        }
+
+        companion object CREATOR : Parcelable.Creator<Results> {
+            override fun createFromParcel(parcel: Parcel): Results {
+                return Results(parcel)
+            }
+
+            override fun newArray(size: Int): Array<Results?> {
+                return arrayOfNulls(size)
+            }
+        }
+    }
 }

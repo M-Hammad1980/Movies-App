@@ -1,9 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.MyMoviesTMDB" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+
+        <item name="android:statusBarColor">@color/toolbarColor</item>
     </style>
 
     <style name="Theme.MyMoviesTMDB" parent="Base.Theme.MyMoviesTMDB" />
+    <style name="roundedImage">
+        <item name="cornerFamily">
+            rounded
+        </item>
+        <item name="cornerSize">
+            @dimen/_5sdp
+        </item>
+    </style>
 </resources>
