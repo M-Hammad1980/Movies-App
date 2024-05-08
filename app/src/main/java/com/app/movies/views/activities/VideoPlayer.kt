@@ -1,13 +1,12 @@
 package com.app.movies.views.activities
 
-import android.app.AlertDialog
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
-import com.app.movies.R
+import androidx.media3.exoplayer.hls.HlsMediaSource
 import com.app.movies.data.model.ResponseState
 import com.app.movies.data.utils.Constants
 import com.app.movies.data.utils.afterDelay
@@ -19,14 +18,10 @@ import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackException
 import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.source.dash.DashMediaSource
-import com.google.android.exoplayer2.source.hls.HlsMediaSource
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.HttpDataSource
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.File
 
 class VideoPlayer : AppCompatActivity() {
     lateinit var binding: ActivityVideoPlayerBinding
@@ -65,13 +60,8 @@ class VideoPlayer : AppCompatActivity() {
                         onBackPressed()
                     }
                     is ResponseState.Success-> {
-                        Log.e("tag**//", "onCreate: ${responseState.data.videoResults.size}")
-                        Log.e("tag**//", "onCreate:  ${responseState.data.videoResults[0].size}")
-                        Log.e("tag**//", "onCreate:  ${responseState.data.videoResults[0].key}")
-
                         val url = "https://www.youtube.com/watch?v=${responseState.data.videoResults[0].key}"
-
-                        initializePlayerMpd(url)
+                        initializePlayerMpd(url.toUri())
                     }
                 }
 
@@ -82,7 +72,7 @@ class VideoPlayer : AppCompatActivity() {
 
     }
 
-    private fun initializePlayerMpd(url: String) {
+    private fun initializePlayerMpd(url: Uri) {
 
 
         binding.playerView.player = exoplayer
@@ -90,13 +80,10 @@ class VideoPlayer : AppCompatActivity() {
             this@VideoPlayer,
             "Exoplayer"
         )*/
-        val dataSourceFactory: HttpDataSource.Factory = DefaultHttpDataSource.Factory()
-        val hlsMediaSource = HlsMediaSource.Factory(dataSourceFactory)
-            .createMediaSource(MediaItem.fromUri(Uri.parse(url)))
 
         try {
 
-            exoplayer?.setMediaSource(hlsMediaSource)
+            exoplayer?.addMediaItem(MediaItem.fromUri(url))
 
             exoplayer?.prepare()
             exoplayer?.play()
