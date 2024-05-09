@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.movies.data.model.ApiResponse
 import com.app.movies.data.model.ResponseState
 import com.app.movies.data.utils.Constants
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(Constants.movieItem, selectedMovie)
             startActivity(intent)
         }
-        binding.moviesRecyclerview.layoutManager = GridLayoutManager(this@MainActivity, 3)
+        binding.moviesRecyclerview.layoutManager = LinearLayoutManager(this@MainActivity)
         binding.moviesRecyclerview.adapter = resultsAdapter
     }
 }

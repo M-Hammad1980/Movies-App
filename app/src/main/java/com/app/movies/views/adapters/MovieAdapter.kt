@@ -30,8 +30,9 @@ class MovieAdapter(private val resultsList: List<ApiResponse.Results>, private v
 
         fun bind(result: ApiResponse.Results) {
             with(binding){
+                title.text = result.originalTitle
 
-                val posterUrl = "https://image.tmdb.org/t/p/w185${result.posterPath}"
+                val posterUrl = "https://image.tmdb.org/t/p/w185${result.backdropPath}"
 
                 Glide.with(posterImage.context)
                     .load(posterUrl)

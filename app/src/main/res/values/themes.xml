@@ -4,6 +4,7 @@
 
 
         <item name="android:statusBarColor">@color/toolbarColor</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.MyMoviesTMDB" parent="Base.Theme.MyMoviesTMDB" />
@@ -12,7 +13,7 @@
             rounded
         </item>
         <item name="cornerSize">
-            @dimen/_5sdp
+            @dimen/_10sdp
         </item>
     </style>
 </resources>
