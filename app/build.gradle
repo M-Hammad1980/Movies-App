@@ -1,11 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
     namespace 'com.app.movies'
-    compileSdk 33
+    compileSdk 34
 
     buildFeatures {
         viewBinding true
@@ -53,6 +54,7 @@ dependencies {
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.3"
 
     // Gson for JSON parsing
     implementation 'com.google.code.gson:gson:2.9.0'
@@ -71,13 +73,14 @@ dependencies {
     //lottieAnimation
     implementation 'com.airbnb.android:lottie:6.0.1'
 
-    //exoplayer
-    implementation 'com.google.android.exoplayer:exoplayer:2.18.7'
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.18.7'
 
     //youtube player
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0'
 
     //mqtt
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
+
+    //
+    implementation "androidx.navigation:navigation-fragment-ktx:2.7.7"
+    implementation "androidx.navigation:navigation-ui-ktx:2.7.7"
 }

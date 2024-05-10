@@ -42,7 +42,7 @@ class MovieDetailActivity : AppCompatActivity() {
             titleText.text = "In Theatres ${selectedMovie?.releaseDate}"
             descriptionText.text = selectedMovie?.overview
 
-            val coverUrl = "https://image.tmdb.org/t/p/w185${selectedMovie?.posterPath}"
+            val coverUrl = "${Constants.imageFormatUrl}${selectedMovie?.posterPath}"
             Glide.with(this@MovieDetailActivity)
                 .load(coverUrl)
                 .into(coverImage)

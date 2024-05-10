@@ -10,13 +10,18 @@ import retrofit2.http.Query
 interface TMDBService {
 
     @GET("movie/upcoming")
-    suspend fun getUpComingMovies(
-        @Query("api_key") apiKey: String = "9a8f1f6f56b8a39e9b08e31779bd4fbb"
-    ): Response<ApiResponse>
+    suspend fun getUpComingMovies(): Response<ApiResponse>
 
     @GET("movie/{id}/videos")
     suspend fun getVideos(
-        @Path("id") id: Int,
-        @Query("api_key") apiKey: String = "9a8f1f6f56b8a39e9b08e31779bd4fbb"
+        @Path("id") id: Int
     ): Response<VideoResponseModel>
+
+
+    @GET("search/movie")
+    suspend fun searchMoviesByQuery(
+        @Query("page") page: Int = 1,
+        @Query("query") query: String
+    ): Response<ApiResponse>
+
 }

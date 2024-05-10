@@ -15,4 +15,7 @@ class NetworkRepository(private val service : TMDBService) {
     suspend fun getVideosLinks(id : Int) : Flow<Response<VideoResponseModel>> = flow {
         emit(service.getVideos(id))
     }
+    suspend fun searchMoviesByQuery(query : String) : Flow<Response<ApiResponse>> = flow {
+        emit(service.searchMoviesByQuery(1, query))
+    }
 }

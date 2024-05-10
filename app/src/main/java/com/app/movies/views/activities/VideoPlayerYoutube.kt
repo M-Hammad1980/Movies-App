@@ -12,7 +12,6 @@ import com.app.movies.data.utils.Constants
 import com.app.movies.databinding.ActivityYoutubePlayerBinding
 import com.app.movies.views.dialogs.ProgressDialog
 import com.app.movies.views.viewModels.NetworkViewModel
-import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener

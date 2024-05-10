@@ -22,6 +22,10 @@ class NetworkViewModel(private val repository: NetworkRepository) : ViewModel() 
         MutableStateFlow(ResponseState.Loading)
     val videosLinks: StateFlow<ResponseState<VideoResponseModel>> = _videosLinks
 
+    private val _searchedVideo: MutableStateFlow<ResponseState<ApiResponse>> =
+        MutableStateFlow(ResponseState.Loading)
+    val searchedVideos: StateFlow<ResponseState<ApiResponse>> = _searchedVideo
+
 
     fun getVideos()
     = viewModelScope.launch {
@@ -53,6 +57,24 @@ class NetworkViewModel(private val repository: NetworkRepository) : ViewModel() 
             }
             .collect {response->
                 _videosLinks.value = ResponseState.Success(response.body()!!)
+                Log.e("tag*", "repo : response: ${response.body()}")
+            }
+    }
+
+
+    fun getSearchVideos(query : String)
+    = viewModelScope.launch {
+        repository.searchMoviesByQuery(query)
+            .onStart {
+                _searchedVideo.value = ResponseState.Loading
+                Log.e("tag*", "repo : loading")
+            }
+            .catch {error ->
+                _searchedVideo.value = ResponseState.Error(error.message.toString())
+                Log.e("tag*", "repo : error : ${error.message.toString()}")
+            }
+            .collect {response->
+                _searchedVideo.value = ResponseState.Success(response.body()!!)
                 Log.e("tag*", "repo : response: ${response.body()}")
             }
     }

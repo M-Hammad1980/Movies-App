@@ -5,8 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.movies.R
 import com.app.movies.data.model.ApiResponse
 import com.app.movies.data.model.ResponseState
 import com.app.movies.data.utils.Constants
@@ -21,50 +26,26 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
-    val networkViewModel by viewModel<NetworkViewModel>()
-    private var resultsAdapter: MovieAdapter ?= null
 
+    lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initNetworkObserver()
-        afterDelay(500){
-            networkViewModel.getVideos()
-        }
-    }
 
-    private fun initNetworkObserver() {
-        lifecycleScope.launch {
-            networkViewModel.videos.collect { responseState ->
-                when (responseState) {
-                    is ResponseState.Loading -> {
-                        binding.loadingAnimation.beVisible()
-                    }
+        navController = findNavController(R.id.fragmentContainerView)
+        binding.bottomNavigation.setupWithNavController(navController)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when(destination.id){
+                R.id.homeFragment -> {
 
-                    is ResponseState.Error -> {
-                        binding.loadingAnimation.beVisible()
-                    }
-
-                    is ResponseState.Success -> {
-                        binding.loadingAnimation.beGone()
-                        val resultsList = responseState.data.results
-                        initRecycler(resultsList)
-                    }
                 }
             }
+
         }
+
     }
 
-    private fun initRecycler(resultsList: ArrayList<ApiResponse.Results>) {
-        resultsAdapter = MovieAdapter(resultsList) { selectedMovie ->
 
-            val intent = Intent(this@MainActivity, MovieDetailActivity::class.java)
-            intent.putExtra(Constants.movieItem, selectedMovie)
-            startActivity(intent)
-        }
-        binding.moviesRecyclerview.layoutManager = LinearLayoutManager(this@MainActivity)
-        binding.moviesRecyclerview.adapter = resultsAdapter
-    }
 }

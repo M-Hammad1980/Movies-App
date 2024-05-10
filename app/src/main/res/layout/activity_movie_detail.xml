@@ -55,17 +55,43 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:ellipsize="end"
+            android:gravity="center"
             android:lines="1"
             android:text="In Theatres"
             android:textColor="@color/white"
             android:textSize="@dimen/_15sdp"
-            android:gravity="center"
-            app:layout_constraintBottom_toTopOf="@+id/watchTrailer"
+            app:layout_constraintBottom_toTopOf="@+id/getTicket"
             app:layout_constraintEnd_toEndOf="@+id/watchTrailer"
             app:layout_constraintStart_toStartOf="@+id/watchTrailer" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/getTicket"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:background="@drawable/rounded_filled"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toTopOf="@+id/watchTrailer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Get Ticket"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/watchTrailer"
             android:layout_width="0dp"

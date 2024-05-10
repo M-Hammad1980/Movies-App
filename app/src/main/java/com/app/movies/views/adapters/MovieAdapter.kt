@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.movies.data.model.ApiResponse
+import com.app.movies.data.utils.Constants
 import com.app.movies.databinding.ItemMovieBinding
 import com.bumptech.glide.Glide
 
@@ -31,8 +32,7 @@ class MovieAdapter(private val resultsList: List<ApiResponse.Results>, private v
         fun bind(result: ApiResponse.Results) {
             with(binding){
                 title.text = result.originalTitle
-
-                val posterUrl = "https://image.tmdb.org/t/p/w185${result.backdropPath}"
+                val posterUrl = "${Constants.imageFormatUrl}${result.backdropPath}"
 
                 Glide.with(posterImage.context)
                     .load(posterUrl)

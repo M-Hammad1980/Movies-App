@@ -16,4 +16,13 @@
             @dimen/_10sdp
         </item>
     </style>
+
+    <style name="textMedBlackStyle">
+        <item name="android:textSize">@dimen/_11sdp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">start</item>
+        <item name="android:padding">@dimen/_5sdp</item>
+        <item name="android:layout_margin">@dimen/_4sdp</item>
+    </style>
+
 </resources>
