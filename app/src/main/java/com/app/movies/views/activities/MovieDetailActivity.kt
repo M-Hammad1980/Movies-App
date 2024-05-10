@@ -2,15 +2,16 @@ package com.app.movies.views.activities
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.app.movies.R
 import com.app.movies.data.model.ApiResponse
 import com.app.movies.data.utils.Constants
-import com.app.movies.data.utils.beVisible
+import com.app.movies.data.utils.addConsecutiveDates
 import com.app.movies.data.utils.getGenresById
-import com.app.movies.data.utils.getRandomColor
 import com.app.movies.databinding.ActivityMovieDetailBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
@@ -18,6 +19,7 @@ import com.google.android.material.chip.ChipGroup
 
 class MovieDetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityMovieDetailBinding
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMovieDetailBinding.inflate(layoutInflater)
@@ -40,6 +42,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         with(binding){
             titleText.text = "In Theatres ${selectedMovie?.releaseDate}"
+
             descriptionText.text = selectedMovie?.overview
 
             val coverUrl = "${Constants.imageFormatUrl}${selectedMovie?.posterPath}"
@@ -49,6 +52,11 @@ class MovieDetailActivity : AppCompatActivity() {
 
             back.setOnClickListener {
                 onBackPressed()
+            }
+            getTicket.setOnClickListener {
+                val intent = Intent(this@MovieDetailActivity, SelectDateActivity::class.java)
+                intent.putExtra(Constants.movieItem, selectedMovie)
+                startActivity(intent)
             }
             watchTrailer.setOnClickListener {
                 val intent = Intent(this@MovieDetailActivity,VideoPlayerYoutube::class.java)

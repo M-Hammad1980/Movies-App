@@ -16,6 +16,9 @@
         android:theme="@style/Theme.MyMoviesTMDB"
         tools:targetApi="31">
         <activity
+            android:name=".views.activities.SelectDateActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.activities.VideoPlayerYoutube"
             android:exported="false" />
         <activity
