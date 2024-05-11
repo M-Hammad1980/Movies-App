@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- create the stroke for top, left, bottom and right with the dp you want -->
+    <item>
+        <shape android:shape="rectangle" >
+            <stroke android:width="@dimen/_1sdp"
+                android:color="#A5A5A5"/>
+            <corners android:radius="@dimen/_8sdp"/>
+        </shape>
+    </item>
+</layer-list>

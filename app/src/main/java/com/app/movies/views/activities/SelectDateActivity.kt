@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.view.children
 import com.app.movies.R
@@ -25,10 +26,21 @@ class SelectDateActivity : AppCompatActivity() {
         setContentView(binding.root)
         val selectedMovie = intent.getParcelableExtra<ApiResponse.Results>(Constants.movieItem)
 
-        binding.toolbar.toolbarTitle.text = selectedMovie?.originalTitle
-        binding.toolbar.toolbarDate.text = "In Theatres ${selectedMovie?.releaseDate}"
-        binding.toolbar.back.setOnClickListener {
-            onBackPressed()
+        with(binding){
+            toolbar.toolbarTitle.text = selectedMovie?.originalTitle
+            toolbar.toolbarDate.text = "In Theatres ${selectedMovie?.releaseDate}"
+            toolbar.back.setOnClickListener {
+                onBackPressed()
+            }
+            constraintLayout.setOnClickListener {
+                onLayoutClicked(it)
+            }
+            constraintLayout1.setOnClickListener {
+                onLayoutClicked(it)
+            }
+            constraintLayout2.setOnClickListener {
+                onLayoutClicked(it)
+            }
         }
 
 
@@ -37,6 +49,15 @@ class SelectDateActivity : AppCompatActivity() {
             val consecutiveDates = addConsecutiveDates(it,8)
             adapter = DateAdapter(consecutiveDates)
             binding.recyclerView.adapter = adapter
+        }
+    }
+
+    fun onLayoutClicked(view: View) {
+        with(binding){
+            constraintLayout.setBackgroundResource(R.drawable.rounded_grey)
+            constraintLayout1.setBackgroundResource(R.drawable.rounded_grey)
+            constraintLayout2.setBackgroundResource(R.drawable.rounded_grey)
+            view.setBackgroundResource(R.drawable.rounded_blue)
         }
     }
 }

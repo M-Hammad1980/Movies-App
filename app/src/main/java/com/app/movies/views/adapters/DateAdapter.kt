@@ -10,7 +10,7 @@ import com.app.movies.R
 class DateAdapter(private val dataList: List<String>) :
     RecyclerView.Adapter<DateAdapter.ViewHolder>() {
 
-    var selectedItemPosition = RecyclerView.NO_POSITION
+    var selectedItemPosition = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_chp, parent, false)

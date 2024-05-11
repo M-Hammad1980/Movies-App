@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.app.movies.databinding.FragmentMqttBinding
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
 import org.eclipse.paho.client.mqttv3.MqttCallback
@@ -47,6 +48,7 @@ class MqttFragment : Fragment() {
         try {
             mqttClient = MqttClient(broker, clientId, MemoryPersistence())
             mqttClient?.setCallback(object : MqttCallback {
+
                 override fun connectionLost(cause: Throwable?) {
                     // Handle connection lost
                     Log.e("mqtt**", "connectionLost: ", )
@@ -65,6 +67,7 @@ class MqttFragment : Fragment() {
                 override fun deliveryComplete(token: IMqttDeliveryToken?) {
                     Log.e("mqtt**", "deliveryComplete: ", )
                 }
+
 
             })
         } catch (e: Exception) {
@@ -86,7 +89,7 @@ class MqttFragment : Fragment() {
         try {
             mqttClient?.connect(options)
         } catch (e: Exception) {
-
+            Toast.makeText(requireContext(), "Connected", Toast.LENGTH_SHORT).show()
             Log.e("mqtt**", "connectToBroker catch: ${e.message}", )
             Log.e("mqtt**", "connectToBroker catch: ${e.cause}", )
             e.printStackTrace()
