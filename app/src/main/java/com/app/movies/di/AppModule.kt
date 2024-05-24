@@ -33,7 +33,7 @@ object AppModule {
                     .create(TMDBService::class.java)
 
         }
-        single { NetworkRepository(get()) }
+        single { NetworkRepository(get(), get()) }
         viewModel { NetworkViewModel(get()) }
 
     }

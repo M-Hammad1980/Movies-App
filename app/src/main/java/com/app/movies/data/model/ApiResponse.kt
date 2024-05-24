@@ -2,6 +2,7 @@ package com.app.movies.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
 data class ApiResponse (
@@ -16,6 +17,7 @@ data class ApiResponse (
         @SerializedName("maximum") var maximum: String? = null,
         @SerializedName("minimum") var minimum: String? = null
     )
+
 
 
     data class Results (
