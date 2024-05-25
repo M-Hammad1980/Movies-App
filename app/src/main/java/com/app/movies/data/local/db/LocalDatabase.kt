@@ -4,16 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.app.movies.data.local.db.dao.VideoDao
-import com.app.movies.data.model.VideoEntity
+import com.app.movies.data.local.db.dao.MovieDao
+import com.app.movies.data.model.MovieEntity
 
 @Database(
-    entities = [VideoEntity::class],
+    entities = [MovieEntity::class],
     version = 1,
     exportSchema = false
 )
 abstract class LocalDatabase : RoomDatabase() {
-    abstract fun videosDao(): VideoDao
+    abstract fun videosDao(): MovieDao
 
     companion object {
         @Volatile

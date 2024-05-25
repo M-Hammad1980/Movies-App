@@ -15,6 +15,7 @@ import com.app.movies.data.utils.Constants
 import com.app.movies.data.utils.afterDelay
 import com.app.movies.data.utils.beGone
 import com.app.movies.data.utils.beVisible
+import com.app.movies.data.utils.showToast
 import com.app.movies.databinding.FragmentHomeBinding
 import com.app.movies.views.activities.MovieDetailActivity
 import com.app.movies.views.adapters.MovieAdapter
@@ -59,11 +60,12 @@ class HomeFragment : BaseFragment() {
 
                         is ResponseState.Error -> {
                             loadingAnimation.beVisible()
+                            requireContext().showToast(getString(R.string.error_while_fetching_movies))
                         }
 
                         is ResponseState.Success -> {
                             loadingAnimation.beGone()
-                            val resultsList = responseState.data.results
+                            val resultsList = responseState.data
                             initRecycler(resultsList)
                         }
                     }
@@ -72,7 +74,7 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun initRecycler(resultsList: ArrayList<ApiResponse.Results>) {
+    private fun initRecycler(resultsList: List<ApiResponse.Results>) {
         binding?.apply {
             resultsAdapter = MovieAdapter(resultsList) { selectedMovie ->
 

@@ -3,10 +3,12 @@ package com.app.movies.views.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.app.movies.R
 import com.app.movies.data.model.ApiResponse
 import com.app.movies.data.utils.Constants
 import com.app.movies.databinding.ItemMovieBinding
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 class MovieAdapter(private val resultsList: List<ApiResponse.Results>, private val itemClickListener : (ApiResponse.Results) -> Unit) :
     RecyclerView.Adapter<MovieAdapter.ResultViewHolder>() {
@@ -36,7 +38,11 @@ class MovieAdapter(private val resultsList: List<ApiResponse.Results>, private v
 
                 Glide.with(posterImage.context)
                     .load(posterUrl)
+                    .apply(
+                        RequestOptions().placeholder(R.drawable.placeholder)
+                            .error(R.drawable.placeholder))
                     .into(posterImage)
+
             }
 
 

@@ -14,9 +14,9 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class NetworkViewModel(private val repository: NetworkRepository) : ViewModel() {
-    private val _videos: MutableStateFlow<ResponseState<ApiResponse>> =
+    private val _videos: MutableStateFlow<ResponseState<List<ApiResponse.Results>>> =
         MutableStateFlow(ResponseState.Loading)
-    val videos: StateFlow<ResponseState<ApiResponse>> = _videos
+    val videos: StateFlow<ResponseState<List<ApiResponse.Results>>> = _videos
 
     private val _videosLinks: MutableStateFlow<ResponseState<VideoResponseModel>> =
         MutableStateFlow(ResponseState.Loading)
@@ -39,8 +39,9 @@ class NetworkViewModel(private val repository: NetworkRepository) : ViewModel() 
                 Log.e("tag*", "repo : error : ${error.message.toString()}")
             }
             .collect {response->
-                _videos.value = ResponseState.Success(response.body()!!)
-                Log.e("tag*", "repo : response: ${response.body()}")
+//                _videos.value = ResponseState.Success(response)
+                _videos.value = response
+                Log.e("tag*", "repo : response: ${response}")
             }
     }
 
@@ -56,7 +57,9 @@ class NetworkViewModel(private val repository: NetworkRepository) : ViewModel() 
                 Log.e("tag*", "repo : error : ${error.message.toString()}")
             }
             .collect {response->
-                _videosLinks.value = ResponseState.Success(response.body()!!)
+//                _videosLinks.value = ResponseState.Success(response.body()!!)
+                val videoResponseModel = VideoResponseModel(id, response.body()!!.videoResults)
+                _videosLinks.value = ResponseState.Success(videoResponseModel)
                 Log.e("tag*", "repo : response: ${response.body()}")
             }
     }

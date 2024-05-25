@@ -14,6 +14,7 @@ import com.app.movies.data.utils.addConsecutiveDates
 import com.app.movies.data.utils.getGenresById
 import com.app.movies.databinding.ActivityMovieDetailBinding
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -48,6 +49,9 @@ class MovieDetailActivity : AppCompatActivity() {
             val coverUrl = "${Constants.imageFormatUrl}${selectedMovie?.posterPath}"
             Glide.with(this@MovieDetailActivity)
                 .load(coverUrl)
+                .apply(
+                    RequestOptions().placeholder(R.drawable.placeholder)
+                    .error(R.drawable.placeholder))
                 .into(coverImage)
 
             back.setOnClickListener {

@@ -1,11 +1,15 @@
 package com.app.movies.data.utils
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.app.movies.data.model.ApiResponse
+import com.app.movies.data.model.MovieEntity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -27,7 +31,9 @@ fun View.beInVisible() {
     visibility = View.INVISIBLE
 }
 
-
+fun Context.showToast(msg : String){
+    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+}
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun addConsecutiveDates(originalDate: String, daysToAdd: Int): List<String> {
@@ -91,3 +97,22 @@ fun getGenresById(ids: ArrayList<Int>): List<String> {
     return genresList
 }
 
+fun ApiResponse.Results.toEntity(): MovieEntity {
+    val genreIdString = genreIds.joinToString(",")
+    return MovieEntity(
+        id = id!!,
+        adult = adult,
+        backdropPath = backdropPath,
+        genreIds = genreIdString,
+        originalLanguage = originalLanguage,
+        originalTitle = originalTitle,
+        overview = overview,
+        popularity = popularity,
+        posterPath = posterPath,
+        releaseDate = releaseDate,
+        title = title,
+        video = video,
+        voteAverage = voteAverage,
+        voteCount = voteCount
+    )
+}
